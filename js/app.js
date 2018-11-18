@@ -34,3 +34,31 @@ fileInput.addEventListener('change', function () {
         reader.readAsDataURL(fileInput.files[0]);
     }
 });
+
+
+
+
+//------------------------- FETCH ----------------------
+
+fetch('http://localhost:3000/photos')
+    .then(response => response.json())
+    .then(images => {
+        let imagesPaths2 = [];
+        images.forEach(el => imagesPaths2.push(el.url));
+
+        let imgItems2 = imagesPaths2.map((el, gallery) => new Image(el, imagesGallery));
+        imgItems2.forEach(el => el.show());
+
+        btnShowFavs.addEventListener('click', function () {
+            imgItems2
+                .filter(el => !el.isFav())
+                .forEach(el => el.hide());
+        });
+
+    });
+
+
+
+
+
+
